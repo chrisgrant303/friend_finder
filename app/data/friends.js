@@ -1,4 +1,4 @@
-var friendData = [
+var friends = [
     {
         "name": "Chris Grant",
         "photo": "https://randomuser.me/api/portraits/men/83.jpg",
@@ -51,4 +51,4 @@ var friendData = [
     }
 ];
 
-module.exports = friendData; 
+module.exports = friends; 

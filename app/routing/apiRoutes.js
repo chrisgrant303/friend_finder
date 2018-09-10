@@ -23,6 +23,34 @@ module.exports = function (app) {
 
     app.post("/api/friends", function (req, res) {
         // req.body is available since we're using the body-parser middleware
-        friendData.push(req.body);
+        // friendData.push(req.body);
+
+        var topMatch = {
+            name: "",
+            photo: "",
+            friendDifference: 1000
+        };
+
+        var userData = req.body;
+        var userScores = userData.scores;
+
+        var totalDifference = 0;
+
+        for (var i = 0; i < (friendData.length - 1); i++) {
+            totalDifference = 0;
+
+            for (var j = 0; j < friendData[i].scores[j]; j++) {
+                totalDifference += Math.abs(parseInt(userScores[j]) - parseInt(friendData[i].scores[j]));
+                if (totalDifference <= topMatch.friendDifference) {
+                    topMatch.name = friendData[i].name;
+                    topMatch.photo = friendData[i].photo;
+                    topMatch.friendDifference = totalDifference;
+                }
+            }
+        }
+
+        friendData.push(userData);
+        res.json(topMatch)
+        console.log(topMatch);
     });
-}
+};

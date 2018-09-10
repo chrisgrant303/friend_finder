@@ -168,7 +168,7 @@
 
     </div>
 
-    <!-- Modal -->
+
     <div id="results-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -179,8 +179,8 @@
                     <h2 class="modal-title"><strong>Here's Your Best Match</strong></h2>
                 </div>
                 <div class="modal-body">
-                    <h2 id="match-name"></h2>
-                    <img id="match-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
+                    <h2 id="matchName"></h2>
+                    <img id="matchImg" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -218,7 +218,7 @@
 
             var userData = {
                 name: $("#name").val(),
-                photo: $("photo").val(),
+                photo: $("#photo").val(),
                 scores: [
                     $("#question1").val(),
                     $("#question2").val(),
@@ -232,24 +232,26 @@
                     $("#question10").val()
                 ]
             };
+            // Grab the URL of the website
+            var currentURL = window.location.origin;
 
 
             // AJAX post the data to the friends API.
-            $.post("/api/friends", userData, function (data) {
-                $("#match-name").text(data.name);
-                $("#match-img").attr("src", data.photo);
+            $.post(currentURL + "/api/friends", userData, function (data) {
+                $("#matchName").text(data.name);
+                $("#matchImg").attr("src", data.photo);
                 $("#results-modal").modal("toggle");
-            })
+            });
         });
 
         //// HOW TO INTERFACE WITH THE API TO BEGIN SUMMING AND TOTALING DIFFERENCES FOR JUST SCORES?
-        function amount(item) {
-            return item.Amount;
-        };
+        // function amount(item) {
+        //     return item.Amount;
+        // };
 
-        function sum(prev, next) {
-            return prev + next;
-        };
+        // function sum(prev, next) {
+        //     return prev + next;
+        // };
 
-        friendData.scores.map(amount).reduce(sum);
+        // friendData.scores.map(amount).reduce(sum);
     </script>
